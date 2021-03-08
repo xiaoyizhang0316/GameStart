@@ -203,7 +203,8 @@ namespace MHLab.Patch.Launcher.Scripts
             Data.Dispatcher.Invoke(() =>
             {
                 gameStart.gameObject.SetActive(true);
-
+                Data.ElapsedTime.text = string.Empty;
+                Data.stepPer.text = string.Empty;
             });
         }
 
