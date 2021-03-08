@@ -23,6 +23,7 @@ namespace MHLab.Patch.Launcher.Scripts
         public Text ProgressPercentage;
         public Text Logs;
         public Text ElapsedTime;
+        public Text stepPer;
         
         public const string WorkspaceFolderName = "PATCHWorkspace";
         
@@ -39,10 +40,12 @@ namespace MHLab.Patch.Launcher.Scripts
         {
             if (_lastTime.AddSeconds(1) <= DateTime.UtcNow)
             {
+                //Debug.Log("Last Size:" + _lastSize.ToString() + "-----currentSize" + e.CurrentFileSize.ToString() + "-------Total size:" + e.TotalFileSize.ToString());
                 _downloadSpeed = (int)((e.CurrentFileSize - _lastSize) / (DateTime.UtcNow - _lastTime).TotalSeconds);
                 if (_downloadSpeed < 0) _downloadSpeed = 0;
                 _lastSize = e.CurrentFileSize;
                 _lastTime = DateTime.UtcNow;
+               
             }
 
             Dispatcher.Invoke(() =>
@@ -56,6 +59,7 @@ namespace MHLab.Patch.Launcher.Scripts
             Dispatcher.Invoke(() =>
             {
                 DownloadSpeed.text = string.Empty;
+
             });
         }
 
@@ -65,8 +69,9 @@ namespace MHLab.Patch.Launcher.Scripts
             {
                 var totalSteps = Math.Max(e.TotalSteps, 1);
                 ProgressBar.Value = (float) e.CurrentSteps / totalSteps;
-
+                stepPer.text = Mathf.Min( e.CurrentSteps, totalSteps).ToString() + "/" + totalSteps.ToString();
                 ProgressPercentage.text = (e.CurrentSteps * 100 / totalSteps) + "%";
+                per = Math.Min( (e.CurrentSteps * 100 / totalSteps),100);
             });
             
             Log(e.StepMessage);
@@ -90,17 +95,31 @@ namespace MHLab.Patch.Launcher.Scripts
             ProgressBar.Value = 0;
         }
 
+        private int per;
+
         public void StartTimer()
         {
+            //_timer = new Timer((state) =>
+            //{
+            //    _elapsed++;
+            //    Dispatcher.Invoke(() =>
+            //    {
+            //        var minutes = _elapsed / 60;
+            //        var seconds = _elapsed % 60;
+
+            //        ElapsedTime.text = string.Format("{0}:{1}", (minutes < 10) ? "0" + minutes : minutes.ToString(), (seconds < 10) ? "0" + seconds : seconds.ToString());
+            //    });
+            //}, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
             _timer = new Timer((state) =>
             {
                 _elapsed++;
+                int actualNum = (100 - per) * _elapsed / per;
                 Dispatcher.Invoke(() =>
                 {
-                    var minutes = _elapsed / 60;
-                    var seconds = _elapsed % 60;
+                    var minutes = actualNum / 60;
+                    var seconds = actualNum % 60;
 
-                    ElapsedTime.text = string.Format("{0}:{1}", (minutes < 10) ? "0" + minutes : minutes.ToString(), (seconds < 10) ? "0" + seconds : seconds.ToString());
+                    ElapsedTime.text = string.Format("剩余时间 {0}:{1}", (minutes < 10) ? "0" + minutes : minutes.ToString(), (seconds < 10) ? "0" + seconds : seconds.ToString());
                 });
             }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
