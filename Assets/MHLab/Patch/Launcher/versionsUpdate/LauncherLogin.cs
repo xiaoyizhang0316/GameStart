@@ -265,7 +265,7 @@ public class LauncherLogin : MonoBehaviour
 
         bool isExsit;
 #if UNITY_STANDALONE_WIN
-        isExsit = !File.Exists(Application.dataPath + "\\Account.json"));
+        isExsit = !File.Exists(Application.dataPath + "\\Account.json");
 #elif UNITY_STANDALONE_OSX
         isExsit = !File.Exists(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Account.json");
 #endif
@@ -354,7 +354,7 @@ public class LauncherLogin : MonoBehaviour
         Debug.Log("获取本地");
         bool isRight;
 #if UNITY_STANDALONE_WIN
-        isRight = !File.Exists(Directory.GetParent(Application.dataPath) + "\\Build.json")
+        isRight = !File.Exists(Directory.GetParent(Application.dataPath) + "\\Build.json");
 #elif UNITY_STANDALONE_OSX
         isRight = !File.Exists(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Build.json");
 
