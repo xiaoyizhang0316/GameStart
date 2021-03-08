@@ -8,6 +8,7 @@ using MHLab.Patch.Launcher.Scripts.Localization;
 using MHLab.Patch.Launcher.Scripts.Utilities;
 using MHLab.Patch.Utilities;
 using UnityEngine;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 namespace MHLab.Patch.Launcher.Scripts
@@ -19,9 +20,12 @@ namespace MHLab.Patch.Launcher.Scripts
         private Repairer _repairer;
         private Updater _updater;
         private UpdatingContext _context;
+
+        public Button gameStart;
         
         private void Initialize(LauncherSettings settings)
         {
+            gameStart.gameObject.SetActive(false);
             var progress = new ProgressReporter();
             progress.ProgressChanged.AddListener(Data.UpdateProgressChanged);
 
@@ -73,6 +77,7 @@ namespace MHLab.Patch.Launcher.Scripts
         private void Awake()
         {
             //Initialize(CreateSettings());
+
             Data.ResetComponents();
         }
 
@@ -81,9 +86,12 @@ namespace MHLab.Patch.Launcher.Scripts
         /// </summary>
         public void Init(string url)
         {
-            Data.RemoteUrl = url + "macpatch";
+            Data.RemoteUrl = url+"patch";
             Initialize(CreateSettings());
-
+            gameStart.onClick.AddListener(() =>
+            {
+                Invoke(nameof(StartGame), 1.5f);
+            });
             try
             {
                 _context.Logger.Info("===> Launcher updating process STARTED! <===");
@@ -186,7 +194,8 @@ namespace MHLab.Patch.Launcher.Scripts
             
             Data.Dispatcher.Invoke(() =>
             {
-                Invoke(nameof(StartGame), 1.5f);
+                gameStart.gameObject.SetActive(true);
+
             });
         }
 

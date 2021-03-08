@@ -27,7 +27,6 @@ public class LauncherLogin : MonoBehaviour
     public string remoteIndex;
 
     public bool isManualOperation;
-
     void Awake()
     {
         StartCoroutine(LoadVersionsIndex((index) => { localInidex = index; }));
@@ -227,8 +226,7 @@ public class LauncherLogin : MonoBehaviour
 
     private string version = "";
 
-    private string URL;
-
+    public string url;
     /// <summary>
     /// 获取版本号
     /// </summary>
@@ -249,8 +247,9 @@ public class LauncherLogin : MonoBehaviour
                     HttpManager.My.ShowTip("获取不到服务器");
                     return;
                 }
-                URL = response.data.Split(',')[1];
+
                 version = response.data.Split(',')[0];
+                url = response.data.Split(',')[1];
                 doEnd?.Invoke(version);
             }
             catch (Exception ex)
@@ -263,13 +262,13 @@ public class LauncherLogin : MonoBehaviour
 
     public IEnumerator LoadAccount(Action canLogin, Action cantLogin)
     {
-        if (!File.Exists(Directory.GetParent( Directory.GetParent( Application.dataPath).FullName)+ "/Account.json"))
+        if (!File.Exists(Application.dataPath + "\\Account.json"))
         {
             cantLogin();
         }
         else
         {
-            StreamReader streamReader = new StreamReader(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Account.json");
+            StreamReader streamReader = new StreamReader(Application.dataPath + "\\Account.json");
             if (streamReader != null)
             {
                 string str = streamReader.ReadToEnd();
@@ -279,8 +278,8 @@ public class LauncherLogin : MonoBehaviour
                 }
 
                 streamReader.Close();
-                string decode = Decrypt(str);
-            //string decode = str ;
+             string decode = Decrypt(str);
+          //  string decode = str ;
                 AccountJosn json = JsonUtility.FromJson<AccountJosn>(decode);
 
                 if (!string.IsNullOrEmpty(json.name))
@@ -303,7 +302,7 @@ public class LauncherLogin : MonoBehaviour
 
     public IEnumerator Delete(Action doend)
     {
-        string path = Directory.GetParent(Directory.GetParent(Application.dataPath) + "") + "/Game";
+        string path =Directory.GetParent(Application.dataPath) + "\\Game";
         if (Directory.Exists(path))
         {
             Debug.LogError("   存在 删除文件夹 ");
@@ -337,13 +336,13 @@ public class LauncherLogin : MonoBehaviour
     public IEnumerator LoadVersionsIndex(Action<string> doEnd)
     {
         Debug.Log("获取本地");
-        if (!File.Exists(Directory.GetParent( Directory.GetParent(Application.dataPath).FullName) + "/Build.json"))
+        if (!File.Exists(Directory.GetParent(Application.dataPath) + "\\Build.json"))
         {
             doEnd("0");
         }
         else
         {
-            StreamReader streamReader = new StreamReader(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Build.json");
+            StreamReader streamReader = new StreamReader(Directory.GetParent(Application.dataPath) + "\\Build.json");
             if (streamReader == null)
             {
                 doEnd("0");
@@ -393,9 +392,9 @@ public class LauncherLogin : MonoBehaviour
             password = password
         };
         string accoutjson = JsonUtility.ToJson(account);
-        string encode = Encrypt(accoutjson);
-        //string encode =accoutjson;
-        FileStream file = new FileStream(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Account.json", FileMode.Create);
+    string encode = Encrypt(accoutjson);
+       // string encode =accoutjson;
+        FileStream file = new FileStream(Application.dataPath + "\\Account.json", FileMode.Create);
         byte[] bts = System.Text.Encoding.UTF8.GetBytes(encode);
         file.Write(bts, 0, bts.Length);
         if (file != null)
@@ -411,7 +410,12 @@ public class LauncherLogin : MonoBehaviour
     /// </summary>
     public void UpdateGame()
     {
-        launcher.Init(URL);
+        if (string.IsNullOrEmpty(url))
+        {
+            return;
+        }
+
+        launcher.Init(url);
     }
 
     /// <summary>

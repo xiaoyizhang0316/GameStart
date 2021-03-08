@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Yseer\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Yseer\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_BUMLauncher.-2069198316.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Yseer\Documents\GitHub\BUMLauncher" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Converter.cs" t="Include" />
+        <e p="DoTweenModule" t="Include">
+          <e p="DemiLib" t="Include">
+            <e p="Core" t="Include">
+              <e p="DemiLib.xml" t="Include" />
+              <e p="Editor" t="Include">
+                <e p="DemiEditor.xml" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="DOTween" t="Include">
+            <e p="DOTween43.xml" t="Include" />
+            <e p="DOTween46.xml" t="Include" />
+            <e p="DOTween50.xml" t="Include" />
+            <e p="readme.txt" t="Include" />
+          </e>
+          <e p="DOTweenPro" t="Include">
+            <e p="DOTweenAnimation.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="DOTweenAnimationInspector.cs" t="Include" />
+            </e>
+            <e p="readme.txt" t="Include" />
+          </e>
+          <e p="readme_DOTweenPro.txt" t="Include" />
+        </e>
+        <e p="HttpData.cs" t="Include" />
+        <e p="HttpManager.cs" t="Include" />
+        <e p="MHLab" t="Include">
+          <e p="Patch" t="Include">
+            <e p="Admin" t="Include">
+              <e p="Editor" t="Include">
+                <e p="AdminWindow.cs" t="Include" />
+                <e p="Components" t="Include">
+                  <e p="Contents" t="Include">
+                    <e p="PatchBuildsContent.cs" t="Include" />
+                    <e p="PatchContent.cs" t="Include" />
+                    <e p="PatchInfoContent.cs" t="Include" />
+                    <e p="PatchLauncherContent.cs" t="Include" />
+                    <e p="PatchOptionsContent.cs" t="Include" />
+                    <e p="PatchPatchesContent.cs" t="Include" />
+                  </e>
+                  <e p="PatchErrorPopup.cs" t="Include" />
+                  <e p="PatchPopup.cs" t="Include" />
+                  <e p="PatchSidebar.cs" t="Include" />
+                  <e p="PatchTipPopup.cs" t="Include" />
+                  <e p="PatchTopbar.cs" t="Include" />
+                  <e p="PatchTutorial.cs" t="Include" />
+                  <e p="PatchWindow.cs" t="Include" />
+                  <e p="PopupErrorType.cs" t="Include" />
+                  <e p="ThemeHelper.cs" t="Include" />
+                </e>
+                <e p="EditorHelpers" t="Include">
+                  <e p="Widget.cs" t="Include" />
+                  <e p="WidgetContainer.cs" t="Include" />
+                  <e p="WidgetFactory.cs" t="Include" />
+                </e>
+                <e p="Localization" t="Include">
+                  <e p="EnglishAdminLocalizedMessages.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="Launcher" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="Dispatcher.cs" t="Include" />
+                <e p="Launcher.cs" t="Include" />
+                <e p="LauncherData.cs" t="Include" />
+                <e p="LauncherUpdater.cs" t="Include" />
+                <e p="Localization" t="Include">
+                  <e p="EnglishUpdaterLocalizedMessages.cs" t="Include" />
+                </e>
+                <e p="UI" t="Include">
+                  <e p="ProgressBar.cs" t="Include" />
+                </e>
+                <e p="UpdateVersion.cs" t="Include" />
+                <e p="Utilities" t="Include">
+                  <e p="ApplicationStarter.cs" t="Include" />
+                  <e p="PrivilegesSetter.cs" t="Include" />
+                </e>
+              </e>
+              <e p="versionsUpdate" t="Include">
+                <e p="LauncherLogin.cs" t="Include" />
+                <e p="VersionsUpdateData.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Utilities" t="Include">
+              <e p="ArgumentChecker.cs" t="Include" />
+              <e p="DebugHelper.cs" t="Include" />
+              <e p="ProgressReporter.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="MonoSingleton" t="Include">
+          <e p="MonoSingleton.cs" t="Include" />
+          <e p="MonoSingletonDontDestroy.cs" t="Include" />
+        </e>
+        <e p="PlayerDatas.cs" t="Include" />
+        <e p="UnityWebRequestAgentHelper.cs" t="Include" />
+        <e p="Url.cs" t="Include" />
+        <e p="WebRequestAgentHelperBase.cs" t="Include" />
+      </e>
+      <e p="BUMLauncher.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
