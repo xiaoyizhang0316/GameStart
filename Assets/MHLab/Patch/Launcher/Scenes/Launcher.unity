@@ -1074,9 +1074,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e0c81bd484498eaa6f04bb77af227d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RemoteUrl: http://192.168.1.92:8003/patch
-  LauncherExecutableName: StartGame.exe
-  GameExecutableName: Bu.M.exe
+  RemoteUrl: http://192.168.1.92:8003/macpatch
+  LauncherExecutableName: StartGame.app
+  GameExecutableName: Bu.M.app
   Dispatcher: {fileID: 1654408391}
   ProgressBar: {fileID: 1700035541}
   DownloadSpeed: {fileID: 2067668057}

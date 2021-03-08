@@ -86,7 +86,15 @@ namespace MHLab.Patch.Launcher.Scripts
         /// </summary>
         public void Init(string url)
         {
-            Data.RemoteUrl = url+"patch";
+#if UNITY_STANDALONE_OSX
+            Data.GameExecutableName = "Bu.M.app";
+            Data.LauncherExecutableName = "StartGame.app";
+            Data.RemoteUrl = url + "macpatch";
+#elif UNITY_STANDALONE_WIN
+            Data.GameExecutableName = "Bu.M.exe";
+            Data.LauncherExecutableName = "StartGame.exe";
+            Data.RemoteUrl = url + "patch";
+#endif
             Initialize(CreateSettings());
             gameStart.onClick.AddListener(() =>
             {

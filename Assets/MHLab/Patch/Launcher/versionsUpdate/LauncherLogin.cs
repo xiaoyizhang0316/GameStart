@@ -262,13 +262,25 @@ public class LauncherLogin : MonoBehaviour
 
     public IEnumerator LoadAccount(Action canLogin, Action cantLogin)
     {
-        if (!File.Exists(Application.dataPath + "\\Account.json"))
+
+        bool isExsit;
+#if UNITY_STANDALONE_WIN
+        isExsit = !File.Exists(Application.dataPath + "\\Account.json"));
+#elif UNITY_STANDALONE_OSX
+        isExsit = !File.Exists(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Account.json");
+#endif
+
+        if (isExsit)
         {
             cantLogin();
         }
         else
         {
+#if UNITY_STANDALONE_WIN
             StreamReader streamReader = new StreamReader(Application.dataPath + "\\Account.json");
+#elif UNITY_STANDALONE_OSX
+            StreamReader streamReader = new StreamReader(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Account.json");
+#endif
             if (streamReader != null)
             {
                 string str = streamReader.ReadToEnd();
@@ -302,7 +314,11 @@ public class LauncherLogin : MonoBehaviour
 
     public IEnumerator Delete(Action doend)
     {
+#if UNITY_STANDALONE_WIN
         string path =Directory.GetParent(Application.dataPath) + "\\Game";
+#elif UNITY_STANDALONE_OSX
+        string path = Directory.GetParent(Directory.GetParent(Application.dataPath) + "") + "/Game";
+#endif
         if (Directory.Exists(path))
         {
             Debug.LogError("   存在 删除文件夹 ");
@@ -336,13 +352,24 @@ public class LauncherLogin : MonoBehaviour
     public IEnumerator LoadVersionsIndex(Action<string> doEnd)
     {
         Debug.Log("获取本地");
-        if (!File.Exists(Directory.GetParent(Application.dataPath) + "\\Build.json"))
+        bool isRight;
+#if UNITY_STANDALONE_WIN
+        isRight = !File.Exists(Directory.GetParent(Application.dataPath) + "\\Build.json")
+#elif UNITY_STANDALONE_OSX
+        isRight = !File.Exists(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Build.json");
+
+#endif
+        if (isRight)
         {
             doEnd("0");
         }
         else
         {
+#if UNITY_STANDALONE_WIN
             StreamReader streamReader = new StreamReader(Directory.GetParent(Application.dataPath) + "\\Build.json");
+#elif UNITY_STANDALONE_OSX
+            StreamReader streamReader = new StreamReader(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Build.json");
+#endif
             if (streamReader == null)
             {
                 doEnd("0");
@@ -393,8 +420,12 @@ public class LauncherLogin : MonoBehaviour
         };
         string accoutjson = JsonUtility.ToJson(account);
     string encode = Encrypt(accoutjson);
-       // string encode =accoutjson;
+        // string encode =accoutjson;
+#if UNITY_STANDALONE_WIN
         FileStream file = new FileStream(Application.dataPath + "\\Account.json", FileMode.Create);
+#elif UNITY_STANDALONE_OSX
+        FileStream file = new FileStream(Directory.GetParent(Directory.GetParent(Application.dataPath).FullName) + "/Account.json", FileMode.Create);
+#endif
         byte[] bts = System.Text.Encoding.UTF8.GetBytes(encode);
         file.Write(bts, 0, bts.Length);
         if (file != null)
