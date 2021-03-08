@@ -65,12 +65,28 @@ public class LauncherLogin : MonoBehaviour
                 fadeManagerText[i].GetComponent<Text>().DOFade(0.4f, 0.8f);
             }
         });
+        
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        if (fadeManager[0].GetComponent<Image>().color.a == 0&&fadeManager[0].gameObject.activeSelf)
+        {
+            for (int i = 0; i < fadeManager.Count; i++)
+            {
+                fadeManager[i].gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < fadeManager.Count; i++)
+            {
+                fadeManager[i].gameObject.SetActive(true);
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (username_Input.isFocused)
