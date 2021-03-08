@@ -34,7 +34,6 @@ namespace MHLab.Patch.Launcher.Scripts
         private long _lastSize = 0;
         private int _downloadSpeed = 0;
 
-
         public void DownloadProgressChanged(object sender, DownloadEventArgs e)
         {
             if (_lastTime.AddSeconds(1) <= DateTime.UtcNow)
