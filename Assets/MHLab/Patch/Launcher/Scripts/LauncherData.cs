@@ -16,47 +16,56 @@ namespace MHLab.Patch.Launcher.Scripts
         public string RemoteUrl;
         public string LauncherExecutableName;
         public string GameExecutableName;
-        
+
         public Dispatcher Dispatcher;
         public ProgressBar ProgressBar;
         public Text DownloadSpeed;
         public Text ProgressPercentage;
         public Text Logs;
         public Text ElapsedTime;
-        
+
         public const string WorkspaceFolderName = "PATCHWorkspace";
-        
+
         private Timer _timer;
         private int _elapsed;
-        
+
         private DateTime _lastTime = DateTime.UtcNow;
         private long _lastSize = 0;
         private int _downloadSpeed = 0;
-        
-        
-        
+
+
         public void DownloadProgressChanged(object sender, DownloadEventArgs e)
         {
             if (_lastTime.AddSeconds(1) <= DateTime.UtcNow)
             {
-                _downloadSpeed = (int)((e.CurrentFileSize - _lastSize) / (DateTime.UtcNow - _lastTime).TotalSeconds);
-                if (_downloadSpeed < 0) _downloadSpeed = 0;
+                _downloadSpeed = (int) ((e.CurrentFileSize - _lastSize) / (DateTime.UtcNow - _lastTime).TotalSeconds);
+                if (_downloadSpeed < 0)
+                {
+                    _downloadSpeed = 0;
+
+                    DownloadSpeed.gameObject.SetActive(false);
+                }
+
+                else
+                {
+                    DownloadSpeed.gameObject.SetActive(true);
+                    
+                }
+
                 _lastSize = e.CurrentFileSize;
                 _lastTime = DateTime.UtcNow;
             }
 
             Dispatcher.Invoke(() =>
             {
-                DownloadSpeed.text = FormatUtility.FormatSizeBinary(_downloadSpeed, 2) + "/s"; ;
+                DownloadSpeed.text = FormatUtility.FormatSizeBinary(_downloadSpeed, 2) + "/s";
+                ;
             });
         }
 
         public void DownloadComplete(object sender, EventArgs e)
         {
-            Dispatcher.Invoke(() =>
-            {
-                DownloadSpeed.text = string.Empty;
-            });
+            Dispatcher.Invoke(() => { DownloadSpeed.text = string.Empty; });
         }
 
         public void UpdateProgressChanged(UpdateProgress e)
@@ -68,16 +77,13 @@ namespace MHLab.Patch.Launcher.Scripts
 
                 ProgressPercentage.text = (e.CurrentSteps * 100 / totalSteps) + "%";
             });
-            
+
             Log(e.StepMessage);
         }
-        
+
         public void Log(string message)
         {
-            Dispatcher.Invoke(() =>
-            {
-                Logs.text = message;
-            });
+            Dispatcher.Invoke(() => { Logs.text = message; });
         }
 
         public void ResetComponents()
@@ -100,7 +106,8 @@ namespace MHLab.Patch.Launcher.Scripts
                     var minutes = _elapsed / 60;
                     var seconds = _elapsed % 60;
 
-                    ElapsedTime.text = string.Format("{0}:{1}", (minutes < 10) ? "0" + minutes : minutes.ToString(), (seconds < 10) ? "0" + seconds : seconds.ToString());
+                    ElapsedTime.text = string.Format("{0}:{1}", (minutes < 10) ? "0" + minutes : minutes.ToString(),
+                        (seconds < 10) ? "0" + seconds : seconds.ToString());
                 });
             }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
